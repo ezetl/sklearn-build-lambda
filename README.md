@@ -3,7 +3,7 @@
 ### Building scikit-learn for AWS Lambda
 
 This repo contains a `build.sh` script that's intended to be run in an Amazon
-Linux docker container, and build scikit-learn, numpy, and scipy for use in AWS
+Linux docker container, and build scikit-learn, numpy, and scipy (and XGBoost) for use in AWS
 Lambda. For more info about how the script works, and how to use it, see my
 [blog post on deploying sklearn to Lambda](https://serverlesscode.com/post/scikitlearn-with-amazon-linux-container/).
 
@@ -13,13 +13,13 @@ branch, used an EC2 instance to perform the build process and an Ansible
 playbook to execute the build. That version still works, but the new dockerized
 version doesn't require you to launch a remote instance.
 
-To build the zipfile, pull the Amazon Linux image and run the build script in
+To build the zipfile, pull the Amazon Linux image, create a personalized image with some extra libraries and run the build script in
 it.
 
 ```
-$ docker pull amazonlinux:2016.09
-$ docker run -v $(pwd):/outputs -it amazonlinux:2016.09 \
-      /bin/bash /outputs/build.sh
+$ docker pull amazonlinux:2018.03
+$ docker image build -t xgboostamazon . 
+$ docker run -v $(pwd):/outputs -it xgboostamazon /bin/bash /outputs/build.sh
 ```
 
 That will make a file called `venv.zip` in the local directory that's around
@@ -47,7 +47,6 @@ def handler(event, context):
     return {'yay': 'done'}
 
 ```
-
 
 ## Sizing and Future Work
 
