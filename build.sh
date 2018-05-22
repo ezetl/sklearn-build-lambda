@@ -11,7 +11,7 @@ PYTHON_VER_YUM='36'
 PYTHON_VER='3.6'
 NUMPY_VER='1.13.3'
 SCIPY_VER='0.19.1'
-XGB_VER='0.71'
+# XGB_VER='0.71'
 
 LAMBDA_PACKAGE_DIR='outputs/lambda-package'
 LIB_DIR="${LAMBDA_PACKAGE_DIR}/lib"
@@ -24,7 +24,7 @@ echo "Pip installing packages using local compilation..." > /dev/null 2>&1
 /usr/bin/pip-${PYTHON_VER} install --upgrade setuptools
 /usr/bin/pip-${PYTHON_VER} install --no-binary numpy numpy==${NUMPY_VER}
 /usr/bin/pip-${PYTHON_VER} install --no-binary scipy scipy==${SCIPY_VER}
-/usr/bin/pip-${PYTHON_VER} install --no-binary xgboost xgboost==${XGB_VER}
+# /usr/bin/pip-${PYTHON_VER} install --no-binary xgboost xgboost==${XGB_VER}
 echo "Pip installing packages using local compilation... Done" > /dev/null 2>&1
 
 echo "Verfifying installation..." > /dev/null 2>&1
@@ -32,7 +32,7 @@ echo "Verfifying installation..." > /dev/null 2>&1
 /usr/bin/python${PYTHON_VER} -c "import numpy as np; print(np.version.version)"
 /usr/bin/python${PYTHON_VER} -c "import numpy as np; print(np.__config__.show())"
 /usr/bin/python${PYTHON_VER} -c "import scipy as sp; print(sp.version.version)"
-/usr/bin/python${PYTHON_VER} -c "import xgboost as xgb; print(xgb.__version__)"
+# /usr/bin/python${PYTHON_VER} -c "import xgboost as xgb; print(xgb.__version__)"
 echo "Verfifying installation...done" > /dev/null 2>&1
 
 echo "Preparing ${LIB_DIR}..." > /dev/null 2>&1
@@ -41,6 +41,7 @@ echo "Preparing ${LIB_DIR}...done" > /dev/null 2>&1
 
 echo "Copying ${SITE_PACKAGES_DIR} contents to ${LAMBDA_PACKAGE_DIR}..." > /dev/null 2>&1
 cp -rf ${SITE_PACKAGES_DIR}/* ${LAMBDA_PACKAGE_DIR}
+#cp -rf lambda_function.py ${LAMBDA_PACKAGE_DIR}/lambda_function.py
 echo "Copying ${SITE_PACKAGES_DIR} contents to ${LAMBDA_PACKAGE_DIR}...done" > /dev/null 2>&1
 
 echo "Copying compiled libraries to ${LIB_DIR}..." > /dev/null 2>&1
